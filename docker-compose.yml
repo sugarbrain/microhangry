@@ -1,0 +1,21 @@
+version: "3"
+services:
+  core-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: core
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  core-api:
+    build: ./core-api
+    command: npm run start:dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./core-api:/microhangry/core-api
+    depends_on:
+      - core-db

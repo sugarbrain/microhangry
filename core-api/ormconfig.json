@@ -1,0 +1,14 @@
+{
+    "name": "core",
+    "type": "postgres",
+    "host": "core-db",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "core",
+    "entities": ["src/**/*.entity{.ts,.js}"],
+    "migrations": ["src/database/migration/*{.js,.ts}"],
+    "cli": {
+        "migrationsDir": "src/database/migration"
+    }
+}
