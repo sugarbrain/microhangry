@@ -1,15 +1,15 @@
-# GQM
-Abaixo estão os objetivos e métricas para o desenvolvimento.
+# Microhangry
 
-### Goal:
-* Criar uma aplicação, organizada em microsserviços, que diminua a espera de clientes em restaurantes.
+Projeto da disciplina (IF1007) Desenvolvimento de Aplicações com Arquitetura Baseada em Microservices, do curso de graduação em Sistemas de Informação do Centro de Informática da Universidade Federal de Pernambuco (UFPE).
 
-### Questions:
-* Como será controlado os acessos à aplicação?
-* Como será avaliada a funcionalidade da aplicação?
-* Como serão controlados os pedidos dos usuários?
+## Equipe
 
-### Metrics:
-* Quantidade de usuários cadastrados
-* Cobertura de testes na API
-* Realização de pedidos de teste com sucesso
+|[Antonio Neto](https://github.com/aacgn) (aacgn) | [Eduardo Moura](https://github.com/eduardosm7) (esm7) | [Mateus Maciel](https://github.com/mmps) (mmps) | [Vinicius Giles](https://github.com/gilesv) (vgcp) |
+|:---------------------:|:------------------:|:----------------:|:--------------------:|
+| GP / Desenvolvedor | Desenvolvedor | Desenvolvedor | Desenvolvedor |
+
+## Descrição
+
+
+## Justificativa
+
