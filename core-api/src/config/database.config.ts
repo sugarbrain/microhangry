@@ -4,7 +4,7 @@ import { createConnection, getRepository, Repository, ObjectType, EntitySchema }
 * @class DatabaseConfig
 */
 export default class DatabaseConfig {
-    public static connectionName: string = `core`;
+    public static connectionName: string = `default`;
 
     public static async connect() {
         for (let i = 0; i < 5; i++) {
