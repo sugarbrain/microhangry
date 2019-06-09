@@ -1,7 +1,9 @@
 import 'reflect-metadata';
-import DatabaseConfig from './config/database.config';
+import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import UserRouter from "./routes/user.route";
+import AuthRouter from "./routes/auth.route";
 
 class Core {
     public app: Express.Application;
@@ -27,8 +29,11 @@ class Core {
         // Allowing body parser JSON
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
-    }
 
+        // Routing
+        this.app.use("/auth", AuthRouter);
+        this.app.use("/users", UserRouter);
+    }
 }
 
 new Core().start();
