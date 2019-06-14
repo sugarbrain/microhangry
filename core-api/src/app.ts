@@ -5,6 +5,7 @@ import * as bodyParser from 'body-parser';
 import UserRouter from "./routes/user.route";
 import AuthRouter from "./routes/auth.route";
 import PermissionRouter from './routes/permission.route';
+import PlaceCategoryRouter from './routes/placeCategory.route';
 
 class Core {
     public app: Express.Application;
@@ -35,6 +36,7 @@ class Core {
         this.app.use("/auth", AuthRouter);
         this.app.use("/users", UserRouter);
         this.app.use("/permissions", PermissionRouter);
+        this.app.use("/place-categories", PlaceCategoryRouter);
     }
 }
 
