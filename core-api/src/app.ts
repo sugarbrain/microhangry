@@ -4,6 +4,7 @@ import * as Express from 'express';
 import * as bodyParser from 'body-parser';
 import UserRouter from "./routes/user.route";
 import AuthRouter from "./routes/auth.route";
+import PermissionRouter from './routes/permission.route';
 
 class Core {
     public app: Express.Application;
@@ -33,6 +34,7 @@ class Core {
         // Routing
         this.app.use("/auth", AuthRouter);
         this.app.use("/users", UserRouter);
+        this.app.use("/permissions", PermissionRouter);
     }
 }
 
