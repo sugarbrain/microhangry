@@ -20,7 +20,10 @@ export class PlaceService {
      */
     public static async create(name: string, category_id: number, address: string, phone: string, description: string): Promise<SafePlace> {
         const repository = db.getRepository(Place);
-        const newPlace = new Place(name, category_id, address, phone, description);
+
+        const placeCategory = await PlaceCategoryService.findById(category_id);
+
+        const newPlace = new Place(name, placeCategory, address, phone, description);
 
         await this.validateFields(newPlace);
 
@@ -41,7 +44,7 @@ export class PlaceService {
             throw new ServerError(errorMessages.join(". "), ErrorCode.FIELD_VALIDATION);
         }
 
-        if (!(await PlaceCategoryService.findById(newPlace.getCategoryId()))) {
+        if (!newPlace.category) {
             throw new ServerError(Messages.validation.place_category_does_not_exist, ErrorCode.RECORD_NOT_FOUND);
         }
     }

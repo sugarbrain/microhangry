@@ -4,9 +4,11 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    ManyToOne,
 } from "typeorm";
 import { Length } from "class-validator";
 import Messages from "../utils/messages";
+import { PlaceCategory } from "./placeCategory.entity";
 
 
 /**
@@ -24,8 +26,8 @@ export class Place {
     })
     private name: string;
 
-    @Column()
-    private category_id: number;
+    @ManyToOne(type => PlaceCategory, placeCategory => placeCategory.places)
+    category: PlaceCategory;
 
     @Column({ length: 64 })
     @Length(3, 64, {
@@ -56,14 +58,14 @@ export class Place {
 
     constructor(
         name: string,
-        category_id: number,
+        category: PlaceCategory,
         address: string,
         phone: string,
         description: string,
         softDeleted = false,
     ) {
         this.name = name;
-        this.category_id = category_id;
+        this.category = category;
         this.address = address;
         this.phone = phone;
         this.description = description;
@@ -83,13 +85,13 @@ export class Place {
         return this.name;
     }
 
-    public getCategoryId(): number {
-        return this.category_id;
+    public getCategory(): PlaceCategory {
+        return this.category;
     }
 
-    public setCategoryId(category_id: number): number {
-        this.category_id = category_id;
-        return this.category_id;
+    public setCategory(category: PlaceCategory): PlaceCategory {
+        this.category = category;
+        return this.category;
     }
 
     public getAddress(): string {
@@ -148,7 +150,7 @@ export class Place {
 export class SafePlace {
     public id: number;
     public name: string;
-    public category_id: number;
+    public category: PlaceCategory;
     public address: string;
     public phone: string;
     public description: string;
@@ -158,7 +160,7 @@ export class SafePlace {
     constructor(place: Place) {
         this.id = place.getId();
         this.name = place.getName();
-        this.category_id = place.getCategoryId();
+        this.category = place.getCategory();
         this.address = place.getAddress();
         this.phone = place.getPhone();
         this.description = place.getDescription();
