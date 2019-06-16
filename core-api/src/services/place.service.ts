@@ -89,6 +89,7 @@ export class PlaceService {
         try {
             const meals: Meal[] = await repository.find({ place: { id: place_id } });
             return meals.map((meal) => meal.toSafe());
+
         } catch (e) {
             throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
         }
