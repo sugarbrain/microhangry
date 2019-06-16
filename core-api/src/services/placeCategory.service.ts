@@ -43,9 +43,19 @@ export class PlaceCategoryService {
 
     }
 
-    public static async findById(id: number): Promise<PlaceCategory> {
+    public static async findById(id: number): Promise<SafePlaceCategory> {
         const repository = db.getRepository(PlaceCategory);
 
+        try {
+            const placeCategory = await repository.findOne(id);
+            return placeCategory ? placeCategory.toSafe() : null;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
+    public static async findByIdWithoutSafety(id: number): Promise<PlaceCategory> {
+        const repository = db.getRepository(PlaceCategory);
         try {
             const placeCategory = await repository.findOne(id);
             return placeCategory ? placeCategory : null;

@@ -17,25 +17,25 @@ import { Place } from "./place.entity";
 @Entity()
 export class PlaceCategory {
     @PrimaryGeneratedColumn()
-    private id: number;
+    public id: number;
 
     @Column({ length: 64 })
     @Length(3, 64, {
         message: Messages.validation.place_category_length,
     })
-    private name: string;
+    public name: string;
 
     @OneToMany(type => Place, place => place.category)
-    places: Place[];
+    public places: Place[];
 
     @Column()
-    private softDeleted: boolean;
+    public softDeleted: boolean;
 
     @CreateDateColumn()
-    private createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn()
-    private updatedAt: Date;
+    public updatedAt: Date;
 
     constructor(name: string, softDeleted = false) {
         this.name = name;

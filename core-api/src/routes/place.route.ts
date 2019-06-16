@@ -6,7 +6,7 @@ function UserRouter(): Router {
 
     router.get("/", PlaceController.getAllPlaces);
     router.get("/:id", PlaceController.getPlace);
-
+    router.get("/:id/meals", PlaceController.getPlaceMeals);
     router.post("/create", PlaceController.createPlace);
 
     return router;
