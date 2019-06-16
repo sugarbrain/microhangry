@@ -12,6 +12,7 @@ import { Place } from "./place.entity";
 import { Permission } from "./permission.entity";
 import { User } from "./user.entity";
 
+
 /**
 * @namespace Entities
 * @class Access

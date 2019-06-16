@@ -4,9 +4,12 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import Messages from "../utils/messages";
+import { Access } from "./access.entity";
+
 
 /**
  * @namespace Entities
@@ -36,6 +39,9 @@ export class User {
         select: false,
     })
     private password: string;
+
+    @OneToMany(type => Access, access => access.user)
+    accesses: Access[];
 
     @Column()
     private softDeleted: boolean;
