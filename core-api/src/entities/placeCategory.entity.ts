@@ -4,9 +4,11 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from "typeorm";
 import { Length } from "class-validator";
 import Messages from "../utils/messages";
+import { Place } from "./place.entity";
 
 /**
  * @namespace Entities
@@ -22,6 +24,9 @@ export class PlaceCategory {
         message: Messages.validation.place_category_length,
     })
     private name: string;
+
+    @OneToMany(type => Place, place => place.category)
+    places: Place[];
 
     @Column()
     private softDeleted: boolean;
@@ -49,6 +54,16 @@ export class PlaceCategory {
         this.name = name;
         return this.name;
     }
+
+    public getPlaces(): Place[] {
+        return this.places;
+    }
+
+    public setPlaces(places: Place[]): Place[] {
+        this.places = places;
+        return this.places;
+    }
+
     public isSoftDeleted(): boolean {
         return this.softDeleted;
     }
@@ -79,12 +94,14 @@ export class PlaceCategory {
 export class SafePlaceCategory {
     public id: number;
     public name: string;
+    public places: Place[];
     public createdAt: Date;
     public updatedAt: Date;
 
     constructor(placeCategory: PlaceCategory) {
         this.id = placeCategory.getId();
         this.name = placeCategory.getName();
+        this.places = placeCategory.getPlaces();
         this.createdAt = placeCategory.getCreatedAt();
         this.updatedAt = placeCategory.getUpdatedAt();
     }
