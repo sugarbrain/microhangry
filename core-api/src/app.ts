@@ -8,6 +8,7 @@ import PermissionRouter from './routes/permission.route';
 import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
 import MealRouter from './routes/meal.route';
+import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 
 class Core {
     public app: Express.Application;
@@ -41,6 +42,7 @@ class Core {
         this.app.use("/place-categories", PlaceCategoryRouter);
         this.app.use("/places", PlaceRouter);
         this.app.use("/meals", MealRouter);
+        this.app.use("/checkout-slots", CheckoutSlotRouter);
     }
 }
 
