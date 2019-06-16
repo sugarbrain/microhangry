@@ -5,10 +5,12 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     ManyToOne,
+    OneToMany,
 } from "typeorm";
 import { Length } from "class-validator";
 import Messages from "../utils/messages";
 import { PlaceCategory } from "./placeCategory.entity";
+import { Meal } from "./meal.entity";
 
 
 /**
@@ -18,43 +20,46 @@ import { PlaceCategory } from "./placeCategory.entity";
 @Entity()
 export class Place {
     @PrimaryGeneratedColumn()
-    private id: number;
+    public id: number;
 
     @Column({ length: 64 })
     @Length(3, 64, {
         message: Messages.validation.place_name_length,
     })
-    private name: string;
+    public name: string;
 
     @ManyToOne(type => PlaceCategory, placeCategory => placeCategory.places)
-    category: PlaceCategory;
+    public category: PlaceCategory;
+
+    @OneToMany(type => Meal, meal => meal.place)
+    public meals: Meal[];
 
     @Column({ length: 64 })
     @Length(3, 64, {
         message: Messages.validation.place_address_length,
     })
-    private address: string;
+    public address: string;
 
     @Column({ length: 12 })
     @Length(12, 12, {
         message: Messages.validation.place_phone_length,
     })
-    private phone: string;
+    public phone: string;
 
     @Column({ length: 255 })
     @Length(3, 255, {
         message: Messages.validation.place_description_length,
     })
-    private description: string;
+    public description: string;
 
     @Column()
-    private softDeleted: boolean;
+    public softDeleted: boolean;
 
     @CreateDateColumn()
-    private createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn()
-    private updatedAt: Date;
+    public updatedAt: Date;
 
     constructor(
         name: string,
@@ -92,6 +97,15 @@ export class Place {
     public setCategory(category: PlaceCategory): PlaceCategory {
         this.category = category;
         return this.category;
+    }
+
+    public getMeals(): Meal[] {
+        return this.meals;
+    }
+
+    public setMeals(meals: Meal[]): Meal[] {
+        this.meals = meals;
+        return this.meals;
     }
 
     public getAddress(): string {
@@ -151,6 +165,7 @@ export class SafePlace {
     public id: number;
     public name: string;
     public category: PlaceCategory;
+    public meals: Meal[];
     public address: string;
     public phone: string;
     public description: string;
@@ -161,6 +176,7 @@ export class SafePlace {
         this.id = place.getId();
         this.name = place.getName();
         this.category = place.getCategory();
+        this.meals = place.getMeals();
         this.address = place.getAddress();
         this.phone = place.getPhone();
         this.description = place.getDescription();

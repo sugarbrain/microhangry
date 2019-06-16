@@ -7,6 +7,7 @@ import AuthRouter from "./routes/auth.route";
 import PermissionRouter from './routes/permission.route';
 import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
+import MealRouter from './routes/meal.route';
 
 class Core {
     public app: Express.Application;
@@ -39,6 +40,7 @@ class Core {
         this.app.use("/permissions", PermissionRouter);
         this.app.use("/place-categories", PlaceCategoryRouter);
         this.app.use("/places", PlaceRouter);
+        this.app.use("/meals", MealRouter);
     }
 }
 
