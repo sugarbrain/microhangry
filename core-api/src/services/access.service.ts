@@ -14,10 +14,10 @@ export class AccessService {
      * @param place
      * @param permission
      */
-    public static async create(place: Place, permission: Permission): Promise<SafeAccess> {
+    public static async create(placeId: number, permissionId: number): Promise<SafeAccess> {
         const repository = db.getRepository(Access);
 
-        const newAccess = new Access(place, permission);
+        const newAccess = new Access(placeId, permissionId);
 
         await this.validateFields(newAccess);
 
