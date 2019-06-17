@@ -13,12 +13,12 @@ before_install:
 
 after_success:
   - docker login -u _ -p "$HEROKU_TOKEN"  registry.heroku.com
-  - docker tag microhangry_core-api registry.heroku.com/micro-teste/web
-  - docker push registry.heroku.com/micro-teste/web
+  - docker tag microhangry_core-api registry.heroku.com/microhangry-api/web
+  - docker push registry.heroku.com/microhangry-api/web
 
 deploy:
   provider: Heroku
   api_key: $HEROKU_TOKEN
-  app: micro-teste
+  app: microhangry-api
   on:
     branch: production

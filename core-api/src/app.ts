@@ -11,7 +11,7 @@ import MealRouter from './routes/meal.route';
 
 class Core {
     public app: Express.Application;
-    public PORT = '8080';
+    public PORT = process.env.PORT;
 
     constructor() {
         this.app = Express();
