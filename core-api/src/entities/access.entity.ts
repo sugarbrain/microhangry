@@ -28,7 +28,7 @@ export class Access {
   @ManyToOne(type => Place, place => place.accesses)
   place: Place;
 
-  @OneToOne(type => Permission, { eager: true })
+  @OneToOne(type => Permission)
   @JoinColumn()
   private permission: Permission;
 

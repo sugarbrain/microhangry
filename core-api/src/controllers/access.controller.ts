@@ -14,11 +14,13 @@ export class AccessController {
             ).toJSON());
 
             return;
-        } else if (!isNan(place_id) || !isNan(permission_id)){
+        } else if (isNaN(place_id) || isNaN(permission_id)){
             res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
                 Messages.validation.ids_should_be_numbers,
                 ErrorCode.NOT_ENOUGH_DATA,
             ).toJSON());
+
+            return;
         }
 
         try {

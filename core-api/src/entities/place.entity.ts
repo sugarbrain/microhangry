@@ -35,7 +35,7 @@ export class Place {
     @OneToMany(type => Meal, meal => meal.place)
     public meals: Meal[];
 
-    @OneToMany(type => Access, access => access.place)
+    @OneToMany(type => Access, access => access.place, { eager: true })
     accesses: Access[];
 
     @Column({ length: 64 })
