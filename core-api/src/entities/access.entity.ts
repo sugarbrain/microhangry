@@ -22,10 +22,10 @@ export class Access {
   @PrimaryGeneratedColumn()
   private id: number;
 
-  @ManyToOne(type => User, user => user.accesses, { eager: true })
+  @ManyToOne(type => User, user => user.accesses)
   user: User;
 
-  @ManyToOne(type => Place, place => place.accesses, { eager: true })
+  @ManyToOne(type => Place, place => place.accesses)
   place: Place;
 
   @OneToOne(type => Permission, { eager: true })

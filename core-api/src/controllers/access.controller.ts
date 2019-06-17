@@ -6,18 +6,23 @@ import Messages from "../utils/messages";
 
 export class AccessController {
     public static async createAccess(req: Request, res: Response) {
-        const { place, permission } = req.body;
-        if (!place || ! permission) {
+        const { place_id, permission_id } = req.body;
+        if (!place_id || ! permission_id) {
             res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
                 Messages.validation.data_needs_to_be_provided,
                 ErrorCode.NOT_ENOUGH_DATA,
             ).toJSON());
 
             return;
+        } else if (!isNan(place_id) || !isNan(permission_id)){
+            res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
+                Messages.validation.ids_should_be_numbers,
+                ErrorCode.NOT_ENOUGH_DATA,
+            ).toJSON());
         }
 
         try {
-            const newAccess = await AccessService.create(place, permission);
+            const newAccess = await AccessService.create(place_id, permission_id);
             res.status(HttpStatus.OK).json(newAccess);
         } catch (err) {
             res.status(HttpStatus.BAD_REQUEST).json(err);
