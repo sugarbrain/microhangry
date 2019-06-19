@@ -21,4 +21,4 @@ deploy:
   api_key: $HEROKU_TOKEN
   app: microhangry-api
   on:
-    branch: production
+    branch: master
