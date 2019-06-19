@@ -25,6 +25,6 @@ export default class DatabaseConfig {
      * @param entity
      */
     public static getRepository<T>(entity: ObjectType<T> | EntitySchema<T> | string): Repository<T> {
-        return getRepository(entity, DatabaseConfig.connectionName);;
+        return getRepository(entity, DatabaseConfig.connectionName);
     }
 }

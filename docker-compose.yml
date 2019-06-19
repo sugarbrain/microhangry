@@ -1,5 +1,25 @@
 version: "3"
 services:
+  order-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata-order:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+  order-service:
+    build: ./order-service
+    command: npm run start:dev
+    ports:
+      - "8083:8081"
+    volumes:
+      - ./order-service:/app
+      - app/node_modules
+    depends_on:
+      - order-db
   core-db:
     image: postgres
     environment:
@@ -7,7 +27,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./pgdata-core:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   core-api:
