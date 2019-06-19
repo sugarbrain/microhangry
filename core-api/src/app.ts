@@ -9,7 +9,7 @@ import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
 import MealRouter from './routes/meal.route';
 
-class OrderApp {
+class Core {
     public app: Express.Application;
     public PORT = process.env.PORT || 8080;
 
@@ -44,4 +44,4 @@ class OrderApp {
     }
 }
 
-new OrderApp().start();
+new Core().start();

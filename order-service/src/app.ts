@@ -3,7 +3,7 @@ import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
 
-class Core {
+class OrderApp {
     public app: Express.Application;
     public PORT = '8081';
 
@@ -30,4 +30,4 @@ class Core {
     }
 }
 
-new Core().start();
+new OrderApp().start();
