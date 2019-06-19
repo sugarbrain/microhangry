@@ -1,4 +1,4 @@
-{
+module.exports = {
     "type": "postgres",
     "host": "order-db",
     "port": 5432,
@@ -11,5 +11,6 @@
     "cli": {
         "entitiesDir": "src/entities",
         "migrationsDir": "./src/database/migration"
-    }
+    },
+    "migrationRun": true
 }
