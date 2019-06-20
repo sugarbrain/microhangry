@@ -9,12 +9,6 @@ script:
 before_install:
   - sudo apt-get update
   - docker ps
-  - sudo service postgresql stop
-
-after_success:
-  - docker login -u _ -p "$HEROKU_TOKEN"  registry.heroku.com
-  - docker tag microhangry_core-api registry.heroku.com/microhangry-api/web
-  - docker push registry.heroku.com/microhangry-api/web
 
 deploy:
   provider: Heroku
@@ -22,3 +16,5 @@ deploy:
   app: microhangry-api
   on:
     branch: master
+  run:
+    - npm run typeorm -- migration:run
