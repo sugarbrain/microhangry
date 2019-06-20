@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import OrderRoute from './routes/order.route';
 
 class OrderApp {
     public app: Express.Application;
@@ -27,6 +28,9 @@ class OrderApp {
         // Allowing body parser JSON
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
+
+        // Routing
+        this.app.use("/orders", OrderRoute);
     }
 }
 
