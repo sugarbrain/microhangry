@@ -8,6 +8,7 @@ import PermissionRouter from './routes/permission.route';
 import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
 import MealRouter from './routes/meal.route';
+import AccessRouter from './routes/access.route';
 
 class Core {
     public app: Express.Application;

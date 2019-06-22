@@ -103,7 +103,7 @@ export class Access {
 
 /**
 * @namespace Entities
-* @class SafePermission
+* @class SafeAccess
 */
 export class SafeAccess {
   public id: number;
