@@ -1,4 +1,2 @@
-pgdata-core
-pgdata-preferences
-pgdata-order
+pgdata-*
 */node_modules
