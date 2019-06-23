@@ -1,0 +1,20 @@
+language: node_js
+
+services:
+  - docker
+
+script:
+  - docker-compose build
+
+before_install:
+  - sudo apt-get update
+  - docker ps
+
+deploy:
+  provider: Heroku
+  api_key: $HEROKU_TOKEN
+  app: microhangry-api
+  on:
+    branch: master
+  run:
+    - npm run typeorm -- migration:run

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/sugarbrain/microhangry.svg?branch=master)](https://travis-ci.org/sugarbrain/microhangry)
+
 # Microhangry
 
 Projeto da disciplina (IF1007) Desenvolvimento de Aplicações com Arquitetura Baseada em Microservices, do curso de graduação em Sistemas de Informação do Centro de Informática da Universidade Federal de Pernambuco (UFPE).
@@ -12,4 +14,3 @@ Projeto da disciplina (IF1007) Desenvolvimento de Aplicações com Arquitetura B
 
 
 ## Justificativa
-

@@ -8,10 +8,12 @@ import PermissionRouter from './routes/permission.route';
 import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
 import MealRouter from './routes/meal.route';
+import AccessRouter from './routes/access.route';
+import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 
 class Core {
     public app: Express.Application;
-    public PORT = '8080';
+    public PORT = process.env.PORT || 8080;
 
     constructor() {
         this.app = Express();
@@ -36,11 +38,13 @@ class Core {
 
         // Routing
         this.app.use("/auth", AuthRouter);
+        this.app.use("/accesses", AccessRouter);
         this.app.use("/users", UserRouter);
         this.app.use("/permissions", PermissionRouter);
         this.app.use("/place-categories", PlaceCategoryRouter);
         this.app.use("/places", PlaceRouter);
         this.app.use("/meals", MealRouter);
+        this.app.use("/checkout-slots", CheckoutSlotRouter);
     }
 }
 

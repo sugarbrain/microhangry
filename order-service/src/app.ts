@@ -2,8 +2,9 @@ import 'reflect-metadata';
 import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import OrderRoute from './routes/order.route';
 
-class PreferencesApp {
+class OrderApp {
     public app: Express.Application;
     public PORT = '8081';
 
@@ -13,7 +14,7 @@ class PreferencesApp {
     }
 
     public async start() {
-        console.log(`Preferences SERVICE started.`);
+        console.log(`Order SERVICE started.`);
 
         this.app.listen(this.PORT, () => {
             console.log(`Server listening in http://localhost:${this.PORT}`);
@@ -28,7 +29,9 @@ class PreferencesApp {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
+        // Routing
+        this.app.use("/orders", OrderRoute);
     }
 }
 
-new PreferencesApp().start();
+new OrderApp().start();

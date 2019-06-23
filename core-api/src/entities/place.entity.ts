@@ -11,6 +11,8 @@ import { Length } from "class-validator";
 import Messages from "../utils/messages";
 import { PlaceCategory } from "./placeCategory.entity";
 import { Meal } from "./meal.entity";
+import { Access } from "./access.entity";
+import { CheckoutSlot } from "./checkoutSlot.entity";
 
 
 /**
@@ -34,6 +36,9 @@ export class Place {
     @OneToMany(type => Meal, meal => meal.place)
     public meals: Meal[];
 
+    @OneToMany(type => Access, access => access.place, { eager: true })
+    accesses: Access[];
+
     @Column({ length: 64 })
     @Length(3, 64, {
         message: Messages.validation.place_address_length,
@@ -51,6 +56,9 @@ export class Place {
         message: Messages.validation.place_description_length,
     })
     public description: string;
+
+    @OneToMany(type => CheckoutSlot, checkoutSlot => checkoutSlot.place, { eager: true, cascade: true })
+    checkoutSlots: CheckoutSlot[];
 
     @Column()
     public softDeleted: boolean;
@@ -133,6 +141,15 @@ export class Place {
     public setDescription(description: string): string {
         this.description = description;
         return this.description;
+    }
+
+    public getCheckoutSlots(): CheckoutSlot[] {
+        return this.checkoutSlots;
+    }
+
+    public setCheckoutSlots(slots: CheckoutSlot[]): CheckoutSlot[] {
+        this.checkoutSlots = slots;
+        return this.checkoutSlots;
     }
 
     public isSoftDeleted(): boolean {

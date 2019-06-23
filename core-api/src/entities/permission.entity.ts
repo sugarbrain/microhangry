@@ -15,22 +15,22 @@ import Messages from "../utils/messages";
 @Entity()
 export class Permission {
     @PrimaryGeneratedColumn()
-    private id: number;
+    public id: number;
 
     @Column({ length: 64 })
     @Length(3, 20, {
         message: Messages.validation.permisson_length,
     })
-    private name: string;
+    public name: string;
 
     @Column()
-    private softDeleted: boolean;
+    public softDeleted: boolean;
 
     @CreateDateColumn()
-    private createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn()
-    private updatedAt: Date;
+    public updatedAt: Date;
 
     constructor(name: string, softDeleted = false) {
         this.name = name;

@@ -2,6 +2,7 @@ version: "3"
 services:
   preferences-db:
     image: postgres
+    container_name: preferences-db
     environment:
       POSTGRES_DB: preferences
       POSTGRES_USER: postgres
@@ -13,14 +14,39 @@ services:
   preferences-service:
     build: ./preferences-service
     command: npm run start:dev
+    container_name: preferences
     ports:
       - "8082:8081"
     volumes:
       - ./preferences-service:/app
+      - /app/node_modules
     depends_on:
       - preferences-db
+  order-db:
+    image: postgres
+    container_name: order-db
+    environment:
+      POSTGRES_DB: order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata-order:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+  order-service:
+    build: ./order-service
+    command: npm run start:dev
+    container_name: order
+    ports:
+      - "8083:8081"
+    volumes:
+      - ./order-service:/app
+      - /app/node_modules
+    depends_on:
+      - order-db
   core-db:
     image: postgres
+    container_name: core-db
     environment:
       POSTGRES_DB: core
       POSTGRES_USER: postgres
@@ -32,10 +58,13 @@ services:
   core-api:
     build: ./core-api
     command: npm run start:dev
+    container_name: core
     ports:
       - "8080:8080"
     volumes:
       - ./core-api:/app
+      - /app/node_modules
     depends_on:
       - core-db
+      - order-service
       - preferences-service
