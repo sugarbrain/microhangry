@@ -4,9 +4,12 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from "typeorm";
 import { IsEmail, Length } from "class-validator";
 import Messages from "../utils/messages";
+import { Access } from "./access.entity";
+
 
 /**
  * @namespace Entities
@@ -15,13 +18,13 @@ import Messages from "../utils/messages";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
-    private id: number;
+    public id: number;
 
     @Column({ length: 64 })
     @Length(3, 20, {
         message: Messages.validation.username_length,
     })
-    private name: string;
+    public name: string;
 
     @Column({
         length: 30,
@@ -30,21 +33,24 @@ export class User {
     @IsEmail({}, {
         message: Messages.validation.email_not_valid,
     })
-    private email: string;
+    public email: string;
 
     @Column({
         select: false,
     })
-    private password: string;
+    public password: string;
+
+    @OneToMany(type => Access, access => access.user)
+    accesses: Access[];
 
     @Column()
-    private softDeleted: boolean;
+    public softDeleted: boolean;
 
     @CreateDateColumn()
-    private createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn()
-    private updatedAt: Date;
+    public updatedAt: Date;
 
     constructor(
         name: string,

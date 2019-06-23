@@ -8,6 +8,7 @@ import PermissionRouter from './routes/permission.route';
 import PlaceCategoryRouter from './routes/placeCategory.route';
 import PlaceRouter from "./routes/place.route";
 import MealRouter from './routes/meal.route';
+import AccessRouter from './routes/access.route';
 import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 
 class Core {
@@ -37,6 +38,7 @@ class Core {
 
         // Routing
         this.app.use("/auth", AuthRouter);
+        this.app.use("/accesses", AccessRouter);
         this.app.use("/users", UserRouter);
         this.app.use("/permissions", PermissionRouter);
         this.app.use("/place-categories", PlaceCategoryRouter);

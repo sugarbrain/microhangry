@@ -59,6 +59,17 @@ export class UserService {
         }
     }
 
+    public static async findByIdWithoutSafety(id: number): Promise<User> {
+        const repository = db.getRepository(User);
+
+        try {
+            const user = await repository.findOne(id);
+            return user;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
     public static async findAll(): Promise<SafeUser[]> {
         const repository = db.getRepository(User);
 

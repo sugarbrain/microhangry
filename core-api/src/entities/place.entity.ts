@@ -11,6 +11,7 @@ import { Length } from "class-validator";
 import Messages from "../utils/messages";
 import { PlaceCategory } from "./placeCategory.entity";
 import { Meal } from "./meal.entity";
+import { Access } from "./access.entity";
 import { CheckoutSlot } from "./checkoutSlot.entity";
 
 
@@ -34,6 +35,9 @@ export class Place {
 
     @OneToMany(type => Meal, meal => meal.place)
     public meals: Meal[];
+
+    @OneToMany(type => Access, access => access.place, { eager: true })
+    accesses: Access[];
 
     @Column({ length: 64 })
     @Length(3, 64, {

@@ -54,6 +54,17 @@ export class PermissionService {
         }
     }
 
+    public static async findByIdWithoutSafety(id: number): Promise<Permission> {
+        const repository = db.getRepository(Permission);
+
+        try {
+            const permission = await repository.findOne(id);
+            return permission;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
     public static async findAll(): Promise<SafePermission[]> {
         const repository = db.getRepository(Permission);
 
