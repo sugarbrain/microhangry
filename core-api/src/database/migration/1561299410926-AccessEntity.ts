@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class AccessEntity1560696356490 implements MigrationInterface {
+export class AccessEntity1561299410926 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.query(`CREATE TABLE "access" ("id" SERIAL NOT NULL, "softDeleted" boolean NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" integer, "placeId" integer, "permissionId" integer, CONSTRAINT "REL_fae56b55bdddaf7d30f3baa25a" UNIQUE ("permissionId"), CONSTRAINT "PK_e386259e6046c45ab06811584ed" PRIMARY KEY ("id"))`);

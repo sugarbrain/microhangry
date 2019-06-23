@@ -5,6 +5,7 @@ import { ValidationError, validate } from "class-validator";
 import Messages from "../utils/messages";
 import { PlaceService } from "./place.service";
 import { PermissionService } from "./permission.service";
+import { UserService } from "./user.service";
 
 /**
  * @namespace Services
@@ -13,15 +14,17 @@ import { PermissionService } from "./permission.service";
 export class AccessService {
     /**
      * Creates a new Access in the database
-     * @param place
-     * @param permission
+     * @param userId
+     * @param placeId
+     * @param permissionId
      */
-    public static async create(place_id: number, permission_id: number): Promise<SafeAccess> {
+    public static async create(userId: number, placeId: number, permissionId: number): Promise<SafeAccess> {
         const repository = db.getRepository(Access);
-        const place = await PlaceService.findById(place_id);
-        const permission = await PermissonService.findById(permission_id);
+        const user = await UserService.findByIdWithoutSafety(userId);
+        const place = await PlaceService.findByIdWithoutSafety(placeId);
+        const permission = await PermissionService.findByIdWithoutSafety(permissionId);
 
-        const newAccess = new Access(place, permission);
+        const newAccess = new Access(user, place, permission);
 
         await this.validateFields(newAccess);
 
@@ -41,21 +44,58 @@ export class AccessService {
 
             throw new ServerError(errorMessages.join(". "), ErrorCode.FIELD_VALIDATION);
         }
+    }
 
-        if (await this.permissionExists(newAccess.getPermissionId())) {
-            throw new ServerError(Messages.validation.access_exists, ErrorCode.ALREADY_EXISTS);
+    public static async findById(id: number): Promise<SafeAccess> {
+        const repository = db.getRepository(Access);
+
+        try {
+            const access = await repository.findOne(id);
+            return access ? access.toSafe() : null;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
         }
     }
 
-    public static async permissionExists(permission_id: number): Promise<boolean> {
-        const repository = db.getRepository(PlaceCategory);
+    public static async findByIdWithoutSafety(id: number): Promise<Access> {
+        const repository = db.getRepository(Access);
 
         try {
-            const count = await repository
-                .createQueryBuilder("access")
-                .where("permission_id = :permission_id", { permission_id })
-                .getCount();
-            return count > 0;
+            const access = await repository.findOne(id);
+            return access;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
+    public static async findAll(): Promise<SafeAccess[]> {
+        const repository = db.getRepository(Access);
+
+        try {
+            const accesses = await repository.find();
+            return accesses.map((access) => access.toSafe());
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
+    public static async findByUserId(userId: number): Promise<SafeAccess[]> {
+        const repository = db.getRepository(Access);
+
+        try {
+            const accesses = await repository.find({ user: { id: userId } });
+            return accesses.map((access) => access.toSafe());
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
+    public static async findByPlaceId(placeId: number): Promise<SafeAccess[]> {
+        const repository = db.getRepository(Access);
+
+        try {
+            const accesses = await repository.find({ place: { id: placeId } });
+            return accesses.map((access) => access.toSafe());
         } catch (e) {
             throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
         }

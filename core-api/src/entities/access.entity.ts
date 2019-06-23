@@ -41,7 +41,8 @@ export class Access {
   @UpdateDateColumn()
   private updatedAt: Date;
 
-  constructor(place: Place, permission: Permission, softDeleted = false) {
+  constructor(user: User, place: Place, permission: Permission, softDeleted = false) {
+    this.user = user;
     this.place = place;
     this.permission = permission;
     this.softDeleted = softDeleted;
@@ -107,15 +108,17 @@ export class Access {
 */
 export class SafeAccess {
   public id: number;
-  public placeId: number;
-  public permission: string;
+  public user: User;
+  public place: Place;
+  public permission: Permission;
   public createdAt: Date;
   public updatedAt: Date;
 
   constructor(access: Access) {
     this.id = access.getId();
-    this.placeId = access.getPlace().getId();
-    this.permission = access.getPermission().getName();
+    this.user = access.getUser();
+    this.place = access.getPlace();
+    this.permission = access.getPermission();
     this.createdAt = access.getCreatedAt();
     this.updatedAt = access.getUpdatedAt();
   }

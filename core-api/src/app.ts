@@ -37,6 +37,7 @@ class Core {
 
         // Routing
         this.app.use("/auth", AuthRouter);
+        this.app.use("/accesses", AccessRouter);
         this.app.use("/users", UserRouter);
         this.app.use("/permissions", PermissionRouter);
         this.app.use("/place-categories", PlaceCategoryRouter);
