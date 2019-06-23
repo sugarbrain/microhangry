@@ -3,8 +3,10 @@ import { Place, SafePlace } from "../entities/place.entity";
 import { ServerError, ErrorCode } from "../utils/serverError";
 import { ValidationError, validate } from "class-validator";
 import { PlaceCategoryService } from "./placeCategory.service";
+import { CheckoutSlotService } from "./checkoutSlot.service";
 import Messages from "../utils/messages";
 import { SafeMeal, Meal } from "../entities/meal.entity";
+import { SafeCheckoutSlot } from "src/entities/checkoutSlot.entity";
 
 /**
  * @namespace Services
@@ -90,6 +92,26 @@ export class PlaceService {
             const meals: Meal[] = await repository.find({ place: { id: place_id } });
             return meals.map((meal) => meal.toSafe());
 
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+
+    }
+
+    public static async findCheckoutSlots(id: number): Promise<SafeCheckoutSlot[]> {
+        return await CheckoutSlotService.findByPlace(id);
+    }
+
+    public static async exists(id: number): Promise<boolean> {
+        const repository = db.getRepository(Place);
+
+        try {
+            const count = await repository
+                .createQueryBuilder("place.id")
+                .where("id = :id", { id })
+                .getCount();
+
+            return count > 0;
         } catch (e) {
             throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
         }
