@@ -2,8 +2,9 @@ import 'reflect-metadata';
 import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import NotificationRouter from './routes/notification.route'
 
-class Notification {
+class NotificationApp {
     public app: Express.Application;
     public PORT = '8081';
 
@@ -28,7 +29,9 @@ class Notification {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
+        // Routing
+        this.app.use("/notifications", NotificationRouter);
     }
 }
 
-new Notification().start();
+new NotificationApp().start();
