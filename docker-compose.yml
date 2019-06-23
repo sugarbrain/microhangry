@@ -17,7 +17,7 @@ services:
       - "8083:8081"
     volumes:
       - ./order-service:/app
-      - app/node_modules
+      - /app/node_modules
     depends_on:
       - order-db
   core-db:
