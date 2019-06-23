@@ -31,7 +31,18 @@ export class PlaceController {
     }
 
     public static async getPlace(req: Request, res: Response) {
-        const place = await PlaceService.findById(req.params.id);
+        const id = req.params.id;
+
+        if (isNaN(id)) {
+            res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
+                Messages.validation.id_must_be_number("id"),
+                ErrorCode.NOT_ENOUGH_DATA,
+            ).toJSON());
+
+            return;
+        }
+
+        const place = await PlaceService.findById(id);
         if (!place) {
             res.status(HttpStatus.NOT_FOUND).json(new ServerError(
                 Messages.place_not_found,
@@ -40,6 +51,7 @@ export class PlaceController {
 
             return;
         }
+
         res.json(place);
     }
 
@@ -61,5 +73,40 @@ export class PlaceController {
         } catch (err) {
             res.status(HttpStatus.BAD_REQUEST).json(err);
         }
+    }
+
+    public static async getCheckoutSlots(req: Request, res: Response) {
+        const placeId = req.params.id;
+
+        if (isNaN(placeId)) {
+            res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
+                Messages.validation.id_must_be_number("placeId"),
+                ErrorCode.NOT_ENOUGH_DATA,
+            ).toJSON());
+
+            return;
+        }
+
+        if (!(await PlaceService.exists(placeId))) {
+            res.status(HttpStatus.NOT_FOUND).json(new ServerError(
+                Messages.place_not_found,
+                ErrorCode.RECORD_NOT_FOUND
+            ).toJSON());
+
+            return;
+        }
+
+        const slots = await PlaceService.findCheckoutSlots(Number(placeId));
+
+        if (!slots) {
+            res.status(HttpStatus.NOT_FOUND).json(new ServerError(
+                Messages.place_not_found,
+                ErrorCode.RECORD_NOT_FOUND
+            ).toJSON());
+
+            return;
+        }
+
+        res.status(HttpStatus.OK).json(slots);
     }
 }
