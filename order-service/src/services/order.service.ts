@@ -1,8 +1,10 @@
 import db from "../config/database";
 import { Order } from "../entities/order.entity";
+import { OrderItem } from "../entities/orderItem.entity";
 import { ServerError, ErrorCode } from "../utils/serverError";
 import { ValidationError, validate } from "class-validator";
 import Messages from "../utils/Messages";
+import OrderStatus from "../utils/OrderStatus";
 
 /**
  * @namespace Services
@@ -17,9 +19,16 @@ export class OrderService {
      * @param checkoutSlotId
      * @param status
      */
-    public static async create(userId: number, placeId: number, checkoutSlotId: number, statusId: number): Promise<Order | Error> {
+    public static async create(
+        userId: number,
+        placeId: number,
+        checkoutSlotId: number,
+        items: any,
+        statusId: number): Promise<Order | Error> {
         const repository = db.getRepository(Order);
-        const newOrder = new Order(userId, placeId, checkoutSlotId, statusId);
+
+        const newOrderItems = items.map(item => new OrderItem(item.mealId, item.quantity));
+        const newOrder = new Order(userId, placeId, checkoutSlotId, statusId, newOrderItems);
 
         await this.validateFields(newOrder);
 
@@ -97,4 +106,24 @@ export class OrderService {
         }
     }
 
+    public static async setOrderStatus(orderId: number, statusId: number): Promise<Order | void> {
+        const repository = db.getRepository(Order);
+        const order = await OrderService.findById(orderId);
+
+        if (!order) {
+            return order;
+        }
+
+        if (Object.keys(OrderStatus).map(k => Number(k)).includes(statusId)) {
+            order.setStatusId(statusId);
+            repository.save(order);
+
+            return order;
+        } else {
+            throw new ServerError(
+                Messages.validation.order_status_dont_exist,
+                ErrorCode.FIELD_VALIDATION
+            );
+        }
+    }
 }
