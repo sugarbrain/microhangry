@@ -2,13 +2,12 @@ import {
     Column,
     Entity,
     PrimaryGeneratedColumn,
-    CreateDateColumn,
-    UpdateDateColumn,
-    ManyToOne,
+    OneToMany,
 } from "typeorm";
 import { IsIn } from "class-validator";
 import Messages from "../utils/Messages";
 import OrderStatus from "../utils/OrderStatus";
+import { OrderItem } from "./orderItem.entity";
 
 /**
  * @namespace Entities
@@ -29,16 +28,20 @@ export class Order {
     public checkoutSlotId: number;
 
     @Column()
-    @IsIn(Object.keys(OrderStatus).map((key) => { return Number(key) }), {
+    @IsIn(Object.keys(OrderStatus).map((key) => Number(key)), {
         message: Messages.validation.order_status_dont_exist,
     })
     public statusId: number;
 
-    constructor(userId: number, placeId: number, checkoutSlotId: number, statusId: number) {
+    @OneToMany(type => OrderItem, item => item.order, { eager: true, cascade: true })
+    public items: OrderItem[];
+
+    constructor(userId: number, placeId: number, checkoutSlotId: number, statusId: number, items: OrderItem[]) {
         this.userId = userId;
         this.placeId = placeId;
         this.checkoutSlotId = checkoutSlotId;
         this.statusId = statusId;
+        this.items = items;
     }
 
     public getId(): number {
@@ -81,4 +84,12 @@ export class Order {
         return this.statusId;
     }
 
+    public getItems(): OrderItem[] {
+        return this.items;
+    }
+
+    public setItems(items: OrderItem[]): OrderItem[] {
+        this.items = items;
+        return this.items;
+    }
 }
