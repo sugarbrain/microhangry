@@ -61,6 +61,26 @@ export class NotificationService {
         }
     }
 
+    public static async findByUserIdNotPulled(userId: number): Promise<Notification[]> {
+        const repository = db.getRepository(Notification);
+
+        try {
+            const notifications = await repository.find({
+                userId: userId,
+                pulled: false,
+            });
+
+            for (let notification of notifications) {
+                notification.setPulled(true);
+                repository.save(notification);
+            }
+
+            return notifications;
+        } catch (e) {
+            throw new ServerError(e.message, ErrorCode.DATABASE_ERROR);
+        }
+    }
+
     public static async findAll(): Promise<Notification[]> {
         const repository = db.getRepository(Notification);
 

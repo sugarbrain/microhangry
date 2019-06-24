@@ -26,6 +26,9 @@ export class Notification {
     @Column()
     public userId: number;
 
+    @Column()
+    public pulled: boolean;
+
     @CreateDateColumn()
     public createdAt: Date;
 
@@ -35,6 +38,7 @@ export class Notification {
     constructor(message: string, userId: number) {
         this.message = message;
         this.userId = userId;
+        this.pulled = false;
     }
 
     public getId(): number {
@@ -57,6 +61,15 @@ export class Notification {
     public setUserId(userId: number): number {
         this.userId = userId;
         return this.userId;
+    }
+
+    public getPulled(): boolean {
+        return this.pulled;
+    }
+
+    public setPulled(pulled: boolean): boolean {
+        this.pulled = pulled;
+        return this.pulled;
     }
 
     public getCreatedAt(): Date {

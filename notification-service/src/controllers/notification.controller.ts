@@ -63,6 +63,20 @@ export class NotificationController {
         res.json(notification);
     }
 
+    public static async getNotificationByUserIdNotPulled(req: Request, res: Response) {
+        const userId = req.params.userId;
+
+        if (isNaN(userId)) {
+            res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
+                Messages.validation.id_must_be_number("userId"),
+                ErrorCode.NOT_ENOUGH_DATA,
+            ).toJSON());
+        }
+
+        const notification = await NotificationService.findByUserIdNotPulled(userId);
+        res.json(notification);
+    }
+
     public static async getAllNotifications(req: Request, res: Response) {
         const notifications = await NotificationService.findAll();
         res.json(notifications);
