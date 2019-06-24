@@ -1,27 +1,27 @@
 version: "3"
 services:
-  preferences-db:
+  preference-db:
     image: postgres
-    container_name: preferences-db
+    container_name: preference-db
     environment:
-      POSTGRES_DB: preferences
+      POSTGRES_DB: preference
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - ./pgdata-preferences:/var/lib/postgresql/data
+      - ./pgdata-preference:/var/lib/postgresql/data
     ports:
       - "5434:5432"
-  preferences-service:
-    build: ./preferences-service
+  preference-service:
+    build: ./preference-service
     command: npm run start:dev
-    container_name: preferences
+    container_name: preference
     ports:
       - "8082:8081"
     volumes:
-      - ./preferences-service:/app
+      - ./preference-service:/app
       - /app/node_modules
     depends_on:
-      - preferences-db
+      - preference-db
   order-db:
     image: postgres
     container_name: order-db
@@ -67,4 +67,4 @@ services:
     depends_on:
       - core-db
       - order-service
-      - preferences-service
+      - preference-service

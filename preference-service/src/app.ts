@@ -2,8 +2,9 @@ import 'reflect-metadata';
 import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import PreferenceRoute from './routes/preference.route';
 
-class PreferencesApp {
+class PreferenceApp {
     public app: Express.Application;
     public PORT = '8081';
 
@@ -28,7 +29,9 @@ class PreferencesApp {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
+        // Routing
+        this.app.use("/preferences", PreferenceRoute);
     }
 }
 
-new PreferencesApp().start();
+new PreferenceApp().start();

@@ -15,7 +15,7 @@ export class OrderService {
      * @param userId
      * @param placeId
      * @param checkoutSlotId
-     * @param status
+     * @param statusId
      */
     public static async create(userId: number, placeId: number, checkoutSlotId: number, statusId: number): Promise<Order | Error> {
         const repository = db.getRepository(Order);
