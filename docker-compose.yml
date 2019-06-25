@@ -44,6 +44,28 @@ services:
       - /app/node_modules
     depends_on:
       - order-db
+  notification-db:
+    image: postgres
+    container_name: notification-db
+    environment:
+      POSTGRES_DB: notification
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./pgdata-notification:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+  notification-service:
+    build: ./notification-service
+    command: npm run start:dev
+    container_name: notification
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./notification-service:/app
+      - /app/node_modules
+    depends_on:
+      - notification-db
   core-db:
     image: postgres
     container_name: core-db
@@ -68,3 +90,4 @@ services:
       - core-db
       - order-service
       - preference-service
+      - notification-service
