@@ -6,11 +6,11 @@ services:
 before_install:
   - sudo apt-get update
   - docker ps
-  - docker-compose build
 
-script: bash deploy.sh
+script: docker-compose build
 
 deploy:
   provider: script
+  script: bash deploy.sh
   on:
     branch: sprint4/ci-cd
