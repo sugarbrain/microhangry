@@ -5,6 +5,7 @@ import { ServerError, ErrorCode } from "../utils/serverError";
 import { ValidationError, validate } from "class-validator";
 import Messages from "../utils/Messages";
 import OrderStatus from "../utils/OrderStatus";
+import { NotificationService } from "../services/notification.service";
 
 /**
  * @namespace Services
@@ -117,6 +118,13 @@ export class OrderService {
         if (Object.keys(OrderStatus).map(k => Number(k)).includes(statusId)) {
             order.setStatusId(statusId);
             repository.save(order);
+
+            // Notify user the order is ready for checkout
+            if (Number(statusId) === 2) {
+                const userId = order.getUserId();
+                const message = `Order ${userId} is waiting checkout`;
+                NotificationService.create(message, userId);
+            }
 
             return order;
         } else {
