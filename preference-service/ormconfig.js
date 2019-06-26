@@ -1,10 +1,10 @@
 module.exports = {
     "type": "postgres",
-    "host": process.env.DATABASE_HOST || "preference-db",
-    "port": process.env.DATABASE_PORT || 5432,
-    "username": process.env.DATABASE_USER || "postgres",
-    "password": process.env.DATABASE_PASS || "postgres",
-    "database": process.env.DATABASE_NAME || "preference",
+    "host": process.env.PREFERENCE_DB_HOST || "preference-db",
+    "port": process.env.PREFERENCE_DB_PORT || 5432,
+    "username": process.env.PREFERENCE_DB_USER || "postgres",
+    "password": process.env.PREFERENCE_DB_PASS || "postgres",
+    "database": process.env.PREFERENCE_DB_NAME || "preference",
     "entities": ["src/entities/*.ts"],
     "migrations": ["src/database/migration/*.ts"],
     "cli": {
