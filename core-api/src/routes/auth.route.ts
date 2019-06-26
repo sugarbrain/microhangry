@@ -19,7 +19,7 @@ function AuthRouter(): Router {
      *         type: string
      * /auth/signup:
      *   post:
-     *     description: Create a new users in database
+     *     description: Create a new user in database
      *     tags: [Auth]
      *     produces:
      *       - application/json
