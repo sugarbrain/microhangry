@@ -11,6 +11,7 @@ import MealRouter from './routes/meal.route';
 import AccessRouter from './routes/access.route';
 import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 import PreferenceRoute from './routes/preference.route';
+import NotificationRouter from "./routes/notification.route";
 
 class Core {
     public app: Express.Application;
@@ -47,6 +48,7 @@ class Core {
         this.app.use("/meals", MealRouter);
         this.app.use("/checkout-slots", CheckoutSlotRouter);
         this.app.use("/preferences", PreferenceRoute);
+        this.app.use("/notifications", NotificationRouter);
     }
 }
 
