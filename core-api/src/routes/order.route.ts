@@ -93,6 +93,13 @@ function OrderRouter(): Router {
      *         schema:
      *          type: number
      *         required: true
+     *       - in: body
+     *         name: statusId
+     *         schema:
+     *          type: object
+     *          properties:
+     *              statusId:
+     *                  type: number
      *     responses:
      *       201:
      *         schema:
