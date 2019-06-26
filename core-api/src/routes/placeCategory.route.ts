@@ -17,12 +17,6 @@ function PlaceCategoryRouter(): Router {
      *         type: number
      *       name:
      *         type: string
-     *       places:
-     *         type: array
-     *         items:
-     *           type: object
-     *       softDeleted:
-     *         type: boolean
      *       createdAt:
      *         type: string
      *       updatedAt:

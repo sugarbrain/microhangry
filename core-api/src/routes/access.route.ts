@@ -24,9 +24,7 @@ function AccessRouter(): Router {
    *       id:
    *         type: number
    *       user:
-   *         $ref: '#/definitions/User'  
-   *       place:
-   *         $ref: '#/definitions/Place'  
+   *         $ref: '#/definitions/User'
    *       permission:
    *         $ref: '#/definitions/Permission'
    *   Accesses:

@@ -15,13 +15,11 @@ function CheckoutSlotRouter(): Router {
      *       id:
      *         type: number
      *       start:
-     *         type: Date
+     *         type: string
+     *         format: date-time
      *       end:
-     *         type: Date
-     *       place:
-     *         $ref: '#/definitions/Place'
-     *       softDeleted:
-     *         type: boolean
+     *         type: string
+     *         format: date-time
      *       createdAt:
      *         type: string
      *       updatedAt:

@@ -16,15 +16,15 @@ export class PlaceService {
     /**
      * Creates a new place in the database
      * @param name
-     * @param category_id
+     * @param categoryId
      * @param address
      * @param phone
      * @param description
      */
-    public static async create(name: string, category_id: number, address: string, phone: string, description: string): Promise<SafePlace> {
+    public static async create(name: string, categoryId: number, address: string, phone: string, description: string): Promise<SafePlace> {
         const repository = db.getRepository(Place);
 
-        const placeCategory = await PlaceCategoryService.findByIdWithoutSafety(category_id);
+        const placeCategory = await PlaceCategoryService.findByIdWithoutSafety(categoryId);
 
         const newPlace = new Place(name, placeCategory, address, phone, description);
 

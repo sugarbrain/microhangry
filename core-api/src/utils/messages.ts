@@ -19,7 +19,7 @@ export default {
         place_address_length: "Place address must have a length between 3 and 64",
         place_phone_length: "Place phone must have a length of 12",
         place_description_length: "Place description must have a length between 3 and 255",
-        place_data_needs_to_be_provided: "Name, category_id, address, phone and description must be provided",
+        place_data_needs_to_be_provided: "Name, categoryId, address, phone and description must be provided",
         meal_name_length: "Meal name must have a length between 3 and 64",
         meal_description_length: "Meal description must have a length between 3 and 255",
         access_exists: "Access already exists for this permission",
