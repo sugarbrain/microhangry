@@ -6,6 +6,16 @@ import adapter from 'axios/lib/adapters/http';
  * @class NotificationService
  */
 export class NotificationService {
+    public static baseUrl = () => {
+        let url = `http://${process.env.NOTIFICATION_HOST}`;
+        const port = process.env.NODE_ENV === 'development' ? 8081 : null;
+
+        if (port) {
+            url += `:${port}`;
+        }
+
+        return url;
+    }
 
     /**
      * Creates a new notification
@@ -14,7 +24,7 @@ export class NotificationService {
      */
     public static async create(message: string, userId: string): Promise<any> {
         try {
-            const notification = await axios.post('http://notification:8081/notifications/create', {
+            const notification = await axios.post(`${this.baseUrl()}/notifications/create`, {
                 message,
                 userId,
             }, { adapter });
@@ -29,7 +39,7 @@ export class NotificationService {
      */
     public static async findAllNotifications(): Promise<any> {
         try {
-            const notifications = await axios.get('http://notification:8081/notifications/', { adapter });
+            const notifications = await axios.get(`${this.baseUrl()}/notifications/`, { adapter });
             return notifications.data;
         } catch (e) {
             console.info(e.message);
@@ -42,7 +52,7 @@ export class NotificationService {
     */
     public static async findById(id: string): Promise<any> {
         try {
-            const notification = await axios.get(`http://notification:8081/notifications/${id}`, { adapter });
+            const notification = await axios.get(`${this.baseUrl()}/notifications/${id}`, { adapter });
             return notification.data;
         } catch (e) {
             console.info(e.message);
@@ -55,7 +65,7 @@ export class NotificationService {
     */
     public static async findByUserId(userId: string): Promise<any> {
         try {
-            const notifications = await axios.get(`http://notification:8081/notifications/users/${userId}`, { adapter });
+            const notifications = await axios.get(`${this.baseUrl()}/notifications/users/${userId}`, { adapter });
             return notifications.data;
         } catch (e) {
             console.info(e.message);
@@ -68,11 +78,10 @@ export class NotificationService {
     */
     public static async findByUserIdNotPulled(userId: string): Promise<any> {
         try {
-            const notifications = await axios.get(`http://notification:8081/notifications/unseen/users/${userId}`, { adapter });
+            const notifications = await axios.get(`${this.baseUrl()}/notifications/unseen/users/${userId}`, { adapter });
             return notifications.data;
         } catch (e) {
             console.info(e.message);
         }
     }
-
-} 
+}

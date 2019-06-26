@@ -37,7 +37,7 @@ services:
       - ORDER_DB_HOST
       - ORDER_DB_PORT
     ports:
-      - "${PREFERENCE_PORT}:${PREFERENCE_PORT}"
+      - "${PREFERENCE_PORT}:8081"
     volumes:
       - ./preference-service:/app
       - /app/node_modules
@@ -81,7 +81,7 @@ services:
       - ORDER_DB_HOST
       - ORDER_DB_PORT
     ports:
-      - "${ORDER_PORT}:${ORDER_PORT}"
+      - "${ORDER_PORT}:8081"
     volumes:
       - ./order-service:/app
       - /app/node_modules
@@ -125,7 +125,7 @@ services:
       - ORDER_DB_HOST
       - ORDER_DB_PORT
     ports:
-      - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
+      - "${NOTIFICATION_PORT}:8081"
     volumes:
       - ./notification-service:/app
       - /app/node_modules
@@ -169,7 +169,7 @@ services:
       - ORDER_DB_HOST
       - ORDER_DB_PORT
     ports:
-      - "${CORE_PORT}:${CORE_PORT}"
+      - "${CORE_PORT}:8080"
     volumes:
       - ./core-api:/app
       - /app/node_modules

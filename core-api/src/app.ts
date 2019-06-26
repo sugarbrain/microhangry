@@ -16,7 +16,8 @@ import OrderRouter from "./routes/order.route";
 
 class Core {
     public app: Express.Application;
-    public PORT = process.env.CORE_PORT || process.env.CORE_PORT || 8080;
+    public HOST = process.env.HOST || 'localhost';
+    public PORT = process.env.PORT || 8080;
 
     constructor() {
         this.app = Express();
@@ -27,7 +28,7 @@ class Core {
         console.log(`Core API started.`);
 
         this.app.listen(this.PORT, () => {
-            console.log(`Server listening in http://localhost:${this.PORT}`);
+            console.log(`Server listening in http://${this.HOST}:${this.PORT}`);
         });
     }
 

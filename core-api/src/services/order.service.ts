@@ -8,7 +8,7 @@ import adapter from 'axios/lib/adapters/http';
 export class OrderService {
     public static baseUrl = () => {
         let url = `http://${process.env.ORDER_HOST}`;
-        const port = process.env.ORDER_PORT;
+        const port = process.env.NODE_ENV === 'development' ? 8081 : null;
 
         if (port) {
             url += `:${port}`;
@@ -33,6 +33,7 @@ export class OrderService {
             }, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -42,15 +43,18 @@ export class OrderService {
             const order = await axios.get(`${this.baseUrl()}/orders/${id}`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
 
     public static async findAll(): Promise<any> {
+        console.log(this.baseUrl());
         try {
             const order = await axios.get(`${this.baseUrl()}/orders`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -60,6 +64,7 @@ export class OrderService {
             const order = await axios.get(`${this.baseUrl()}/orders/user/${userId}`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -69,6 +74,7 @@ export class OrderService {
             const order = await axios.get(`${this.baseUrl()}/orders/place/${placeId}`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -78,6 +84,7 @@ export class OrderService {
             const order = await axios.get(`${this.baseUrl()}/orders/status/${statusId}`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -87,6 +94,7 @@ export class OrderService {
             const order = await axios.get(`${this.baseUrl()}/orders/${orderId}/items`, { adapter });
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }
@@ -100,6 +108,7 @@ export class OrderService {
             );
             return order.data;
         } catch (e) {
+            console.info(e.message);
             return e.response.data;
         }
     }

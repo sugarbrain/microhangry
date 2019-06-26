@@ -6,7 +6,8 @@ import NotificationRouter from './routes/notification.route'
 
 class NotificationApp {
     public app: Express.Application;
-    public PORT = process.env.NOTIFICATION_PORT || process.env.PORT || 8080;
+    public HOST = process.env.HOST || 'localhost';
+    public PORT = process.env.PORT || 8081;
 
     constructor() {
         this.app = Express();
@@ -17,7 +18,7 @@ class NotificationApp {
         console.log(`Notification SERVICE started.`);
 
         this.app.listen(this.PORT, () => {
-            console.log(`Server listening in http://localhost:${this.PORT}`);
+            console.log(`Server listening in http://${this.HOST}:${this.PORT}`);
         });
     }
 
