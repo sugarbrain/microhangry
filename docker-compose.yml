@@ -1,5 +1,8 @@
 version: "3"
 services:
+  ###############################################
+  ## PREFERENCE-SERVICE
+  ###############################################
   preference-db:
     image: postgres
     container_name: preference-db
@@ -10,18 +13,40 @@ services:
     volumes:
       - ./pgdata-preference:/var/lib/postgresql/data
     ports:
-      - "5434:5432"
+      - "${PREFERENCE_DB_PORT}:5432"
+
   preference-service:
     build: ./preference-service
     command: npm run start:dev
     container_name: preference
+    environment:
+      - CORE_HOST
+      - CORE_PORT
+      - CORE_DB_HOST
+      - CORE_DB_PORT
+      - NOTIFICATION_HOST
+      - NOTIFICATION_PORT
+      - NOTIFICATION_DB_HOST
+      - NOTIFICATION_DB_PORT
+      - PREFERENCE_HOST
+      - PREFERENCE_PORT
+      - PREFERENCE_DB_HOST
+      - PREFERENCE_DB_PORT
+      - ORDER_HOST
+      - ORDER_PORT
+      - ORDER_DB_HOST
+      - ORDER_DB_PORT
     ports:
-      - "8082:8081"
+      - "${PREFERENCE_PORT}:${PREFERENCE_PORT}"
     volumes:
       - ./preference-service:/app
       - /app/node_modules
     depends_on:
       - preference-db
+
+  ###############################################
+  ## ORDER-SERVICE
+  ###############################################
   order-db:
     image: postgres
     container_name: order-db
@@ -32,18 +57,40 @@ services:
     volumes:
       - ./pgdata-order:/var/lib/postgresql/data
     ports:
-      - "5435:5432"
+      - "${ORDER_DB_PORT}:5432"
+
   order-service:
     build: ./order-service
     command: npm run start:dev
     container_name: order
+    environment:
+      - CORE_HOST
+      - CORE_PORT
+      - CORE_DB_HOST
+      - CORE_DB_PORT
+      - NOTIFICATION_HOST
+      - NOTIFICATION_PORT
+      - NOTIFICATION_DB_HOST
+      - NOTIFICATION_DB_PORT
+      - PREFERENCE_HOST
+      - PREFERENCE_PORT
+      - PREFERENCE_DB_HOST
+      - PREFERENCE_DB_PORT
+      - ORDER_HOST
+      - ORDER_PORT
+      - ORDER_DB_HOST
+      - ORDER_DB_PORT
     ports:
-      - "8083:8081"
+      - "${ORDER_PORT}:${ORDER_PORT}"
     volumes:
       - ./order-service:/app
       - /app/node_modules
     depends_on:
       - order-db
+
+  ###############################################
+  ## NOTIFICATION-SERVICE
+  ###############################################
   notification-db:
     image: postgres
     container_name: notification-db
@@ -54,18 +101,40 @@ services:
     volumes:
       - ./pgdata-notification:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "${NOTIFICATION_DB_PORT}:5432"
+
   notification-service:
     build: ./notification-service
     command: npm run start:dev
     container_name: notification
+    environment:
+      - CORE_HOST
+      - CORE_PORT
+      - CORE_DB_HOST
+      - CORE_DB_PORT
+      - NOTIFICATION_HOST
+      - NOTIFICATION_PORT
+      - NOTIFICATION_DB_HOST
+      - NOTIFICATION_DB_PORT
+      - PREFERENCE_HOST
+      - PREFERENCE_PORT
+      - PREFERENCE_DB_HOST
+      - PREFERENCE_DB_PORT
+      - ORDER_HOST
+      - ORDER_PORT
+      - ORDER_DB_HOST
+      - ORDER_DB_PORT
     ports:
-      - "8081:8081"
+      - "${NOTIFICATION_PORT}:${NOTIFICATION_PORT}"
     volumes:
       - ./notification-service:/app
       - /app/node_modules
     depends_on:
       - notification-db
+
+  ###############################################
+  ## CORE-API
+  ###############################################
   core-db:
     image: postgres
     container_name: core-db
@@ -76,13 +145,31 @@ services:
     volumes:
       - ./pgdata-core:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${CORE_DB_PORT}:5432"
+
   core-api:
     build: ./core-api
     command: npm run start:dev
     container_name: core
+    environment:
+      - CORE_HOST
+      - CORE_PORT
+      - CORE_DB_HOST
+      - CORE_DB_PORT
+      - NOTIFICATION_HOST
+      - NOTIFICATION_PORT
+      - NOTIFICATION_DB_HOST
+      - NOTIFICATION_DB_PORT
+      - PREFERENCE_HOST
+      - PREFERENCE_PORT
+      - PREFERENCE_DB_HOST
+      - PREFERENCE_DB_PORT
+      - ORDER_HOST
+      - ORDER_PORT
+      - ORDER_DB_HOST
+      - ORDER_DB_PORT
     ports:
-      - "8080:8080"
+      - "${CORE_PORT}:${CORE_PORT}"
     volumes:
       - ./core-api:/app
       - /app/node_modules

@@ -12,10 +12,11 @@ import AccessRouter from './routes/access.route';
 import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 import PreferenceRoute from './routes/preference.route';
 import NotificationRouter from "./routes/notification.route";
+import OrderRouter from "./routes/order.route";
 
 class Core {
     public app: Express.Application;
-    public PORT = process.env.PORT || 8080;
+    public PORT = process.env.CORE_PORT || process.env.CORE_PORT || 8080;
 
     constructor() {
         this.app = Express();
@@ -49,6 +50,7 @@ class Core {
         this.app.use("/checkout-slots", CheckoutSlotRouter);
         this.app.use("/preferences", PreferenceRoute);
         this.app.use("/notifications", NotificationRouter);
+        this.app.use("/orders", OrderRouter);
     }
 }
 

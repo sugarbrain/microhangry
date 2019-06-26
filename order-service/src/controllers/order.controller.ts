@@ -125,9 +125,11 @@ export class OrderController {
                 Messages.validation.id_must_be_number("statusId"),
                 ErrorCode.NOT_ENOUGH_DATA,
             ).toJSON());
+
+            return;
         }
 
-        const permissions = await OrderService.findByPlaceId(statusId);
+        const permissions = await OrderService.findByStatus(statusId);
         res.json(permissions);
     }
 
