@@ -62,8 +62,8 @@ class Core {
         this.app.use("/places", PlaceRouter);
         this.app.use("/meals", MealRouter);
         this.app.use("/checkout-slots", CheckoutSlotRouter);
-        this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
         this.app.use("/preferences", PreferenceRoute);
+        this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
     }
 }
 
