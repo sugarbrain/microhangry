@@ -1,7 +1,7 @@
 module.exports = {
     "type": "postgres",
     "host": process.env.PREFERENCE_DB_HOST || "preference-db",
-    "port": process.env.PREFERENCE_DB_PORT || 5432,
+    "port": 5432,
     "username": process.env.PREFERENCE_DB_USER || "postgres",
     "password": process.env.PREFERENCE_DB_PASS || "postgres",
     "database": process.env.PREFERENCE_DB_NAME || "preference",

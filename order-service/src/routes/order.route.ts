@@ -11,8 +11,9 @@ function OrderRouter(): Router {
     router.put("/:id", OrderController.updateOrderStatus);
     router.get("/user/:userId", OrderController.getOrderByUserId);
     router.get("/place/:placeId", OrderController.getOrderByPlaceId);
-    router.get("/status/:status", OrderController.getOrderByStatus);
+    router.get("/status/:statusId", OrderController.getOrderByStatus);
     router.get("/:id/items", OrderController.getItemsByOrderId);
+
     return router;
 }
 

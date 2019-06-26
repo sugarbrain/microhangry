@@ -14,9 +14,11 @@ import AccessRouter from './routes/access.route';
 import CheckoutSlotRouter from "./routes/checkoutSlot.route";
 import PreferenceRoute from './routes/preference.route';
 import NotificationRouter from "./routes/notification.route";
+import OrderRouter from "./routes/order.route";
 
 class Core {
     public app: Express.Application;
+    public HOST = process.env.HOST || 'localhost';
     public PORT = process.env.PORT || 8080;
 
     constructor() {
@@ -28,7 +30,7 @@ class Core {
         console.log(`Core API started.`);
 
         this.app.listen(this.PORT, () => {
-            console.log(`Server listening in http://localhost:${this.PORT}`);
+            console.log(`Server listening in http://${this.HOST}:${this.PORT}`);
         });
     }
 
@@ -65,6 +67,7 @@ class Core {
         this.app.use("/checkout-slots", CheckoutSlotRouter);
         this.app.use("/preferences", PreferenceRoute);
         this.app.use("/notifications", NotificationRouter);
+        this.app.use("/orders", OrderRouter);
         this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
     }
 }
