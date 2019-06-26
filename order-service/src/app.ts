@@ -6,7 +6,7 @@ import OrderRoute from './routes/order.route';
 
 class OrderApp {
     public app: Express.Application;
-    public PORT = process.env.PORT || 8081;
+    public PORT = process.env.ORDER_PORT || process.env.PORT || 8080;
 
     constructor() {
         this.app = Express();

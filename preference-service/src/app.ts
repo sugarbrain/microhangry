@@ -6,7 +6,7 @@ import PreferenceRoute from './routes/preference.route';
 
 class PreferenceApp {
     public app: Express.Application;
-    public PORT = process.env.PORT || 8081;
+    public PORT = process.env.PREFERENCE_PORT || process.env.PORT || 8080;
 
     constructor() {
         this.app = Express();
