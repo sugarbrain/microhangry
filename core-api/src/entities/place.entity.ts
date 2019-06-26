@@ -30,7 +30,7 @@ export class Place {
     })
     public name: string;
 
-    @ManyToOne(type => PlaceCategory, placeCategory => placeCategory.places)
+    @ManyToOne(type => PlaceCategory, placeCategory => placeCategory.places, { eager: true })
     public category: PlaceCategory;
 
     @OneToMany(type => Meal, meal => meal.place)

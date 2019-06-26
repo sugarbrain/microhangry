@@ -15,12 +15,12 @@ export class MealService {
      * @param name
      * @param description
      * @param price
-     * @param place_id
+     * @param placeId
      */
-    public static async create(name: string, description: string, price: number, place_id: number): Promise<SafeMeal> {
+    public static async create(name: string, description: string, price: number, placeId: number): Promise<SafeMeal> {
         const repository = db.getRepository(Meal);
 
-        const place = await PlaceService.findByIdWithoutSafety(place_id);
+        const place = await PlaceService.findByIdWithoutSafety(placeId);
 
         const newMeal = new Meal(name, description, price, place);
 

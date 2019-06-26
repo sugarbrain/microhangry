@@ -6,8 +6,8 @@ import { MealService } from "../services/meal.service";
 
 export class MealController {
     public static async createMeal(req: Request, res: Response) {
-        const { name, description, price, place_id } = req.body;
-        if (!name || !description || !price || !place_id) {
+        const { name, description, price, placeId } = req.body;
+        if (!name || !description || !price || !placeId) {
             res.status(HttpStatus.BAD_REQUEST).json(new ServerError(
                 Messages.validation.data_needs_to_be_provided,
                 ErrorCode.NOT_ENOUGH_DATA,
@@ -17,7 +17,7 @@ export class MealController {
         }
 
         try {
-            const newMeal = await MealService.create(name, description, price, place_id);
+            const newMeal = await MealService.create(name, description, price, placeId);
             res.status(HttpStatus.OK).json(newMeal);
         } catch (err) {
             res.status(HttpStatus.BAD_REQUEST).json(err);

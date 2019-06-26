@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import DatabaseConfig from './config/database';
 import * as Express from 'express';
 import * as bodyParser from 'body-parser';
+import * as swaggerJsdoc from 'swagger-jsdoc';
+import * as swaggerUi from 'swagger-ui-express';
 import UserRouter from "./routes/user.route";
 import AuthRouter from "./routes/auth.route";
 import PermissionRouter from './routes/permission.route';
@@ -40,6 +42,20 @@ class Core {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
+        const options = {
+            swaggerDefinition: {
+                info: {
+                    title: 'Hangry - Core API',
+                    version: '0.2.0',
+                    description: 'For people that are hungry for microservices!',
+                },
+            },
+            schemes: ["http"],
+            apis: ["**/*.ts"],
+        };
+
+        const specs = swaggerJsdoc(options);
+
         // Routing
         this.app.use("/auth", AuthRouter);
         this.app.use("/accesses", AccessRouter);
@@ -52,6 +68,7 @@ class Core {
         this.app.use("/preferences", PreferenceRoute);
         this.app.use("/notifications", NotificationRouter);
         this.app.use("/orders", OrderRouter);
+        this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(specs));
     }
 }
 

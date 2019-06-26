@@ -1,2 +1,2 @@
 export $(cat .env | sed 's/#.*//g' | xargs)
-docker-compose up
+sudo docker-compose up

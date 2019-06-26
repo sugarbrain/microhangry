@@ -34,7 +34,7 @@ export class Meal {
     @Column()
     public price: number;
 
-    @ManyToOne(type => Place, place => place.meals)
+    @ManyToOne(type => Place, place => place.meals, { eager: true })
     public place: Place;
 
     @Column()
