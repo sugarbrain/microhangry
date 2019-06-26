@@ -6,6 +6,7 @@ import PreferenceRoute from './routes/preference.route';
 
 class PreferenceApp {
     public app: Express.Application;
+    public HOST = process.env.HOST || 'localhost';
     public PORT = process.env.PORT || 8081;
 
     constructor() {
@@ -17,7 +18,7 @@ class PreferenceApp {
         console.log(`Preferences SERVICE started.`);
 
         this.app.listen(this.PORT, () => {
-            console.log(`Server listening in http://localhost:${this.PORT}`);
+            console.log(`Server listening in http://${this.HOST}:${this.PORT}`);
         });
     }
 

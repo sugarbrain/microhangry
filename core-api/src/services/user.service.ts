@@ -72,6 +72,7 @@ export class UserService {
 
     public static async findAll(): Promise<SafeUser[]> {
         const repository = db.getRepository(User);
+        console.log(`http://${process.env.ORDER_HOST}:${process.env.ORDER_PORT}`);
 
         try {
             const users: User[] = await repository.find();

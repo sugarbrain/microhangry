@@ -1,7 +1,7 @@
 module.exports = {
     "type": "postgres",
     "host": process.env.ORDER_DB_HOST || "order-db",
-    "port": process.env.ORDER_DB_PORT || 5432,
+    "port": 5432,
     "username": process.env.ORDER_DB_USER || "postgres",
     "password": process.env.ORDER_DB_PASS || "postgres",
     "database": process.env.ORDER_DB_NAME || "order",

@@ -1,7 +1,7 @@
 module.exports = {
     "type": "postgres",
     "host": process.env.CORE_DB_HOST || "core-db",
-    "port": process.env.CORE_DB_PORT || 5432,
+    "port": 5432,
     "username": process.env.CORE_DB_USER || "postgres",
     "password": process.env.CORE_DB_PASS || "postgres",
     "database": process.env.CORE_DB_NAME || "core",

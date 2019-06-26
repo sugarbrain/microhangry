@@ -1,18 +1,17 @@
 import { Router } from "express";
 import { OrderController } from "../controllers/order.controller";
 
-
 function OrderRouter(): Router {
     const router = Router();
 
     router.post("/create", OrderController.createOrder);
     router.get("/", OrderController.getAllOrders);
-    router.get("/:id", OrderController.getOrderById);
-    router.put("/:id", OrderController.updateOrderStatus);
+    router.get("/:orderId", OrderController.getOrderById);
+    router.put("/:orderId", OrderController.updateOrderStatus);
     router.get("/user/:userId", OrderController.getOrderByUserId);
     router.get("/place/:placeId", OrderController.getOrderByPlaceId);
-    router.get("/status/:statusId", OrderController.getOrderByStatus);
-    router.get("/:id/items", OrderController.getItemsByOrderId);
+    router.get("/status/:statusId", OrderController.getOrderByStatusId);
+    router.get("/:orderId/items", OrderController.getOrderItems);
 
     return router;
 }
