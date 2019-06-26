@@ -5,11 +5,11 @@ Abaixo estão os objetivos e métricas para o desenvolvimento.
 * Criar uma aplicação, organizada em microsserviços, que diminua a espera de clientes em restaurantes.
 
 ### Questions:
-* Como será controlado os acessos à aplicação?
-* Como será avaliada a funcionalidade da aplicação?
-* Como serão controlados os pedidos dos usuários?
+* Quais recursos podem ser segmentados em serviços?
+* Como a comunicação entre os serviços realmente ocorre?
+* Como o modelo ER é impactado pela arquitetura de microservices?
 
 ### Metrics:
-* Quantidade de usuários cadastrados
-* Cobertura de testes na API
-* Realização de pedidos de teste com sucesso
+* Serviços substituídos
+* Velocidade de comunicação
+* Complexidade do modelo ER
